@@ -1,0 +1,31 @@
+trigger:
+- master
+
+pool:
+  vmImage: 'windows-latest'
+
+steps:
+# Build the solution
+- task: DotNetCoreCLI@2
+  displayName: 'Build Project'
+  inputs:
+    command: 'build'
+    projects: '**/*.csproj'
+    arguments: '--configuration Release'
+
+# Pack the NuGet package
+- task: DotNetCoreCLI@2
+  displayName: 'Pack NuGet Package'
+  inputs:
+    command: 'pack'
+    packagesToPack: '**/*.csproj'
+    nobuild: true
+    versioningScheme: 'off'
+
+# Push the NuGet package to Azure Artifacts feed
+- task: DotNetCoreCLI@2
+  displayName: 'Push NuGet Package to Azure Artifacts'
+  inputs:
+    command: 'push'
+    packagesToPush: '$(Build.ArtifactStagingDirectory)/*.nupkg'
+    publishVstsFeed: 'stringextensions-feed'
