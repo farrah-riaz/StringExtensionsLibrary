@@ -30,3 +30,4 @@ steps:
     packagesToPush: '$(Build.ArtifactStagingDirectory)/*.nupkg'
     publishVstsFeed: 'StringExtensionsLibrary-DevOps/stringextensions-feed'
     arguments: '--skip-duplicate'
+    
