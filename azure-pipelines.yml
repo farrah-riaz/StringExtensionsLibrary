@@ -28,4 +28,4 @@ steps:
   inputs:
     command: 'push'
     packagesToPush: '$(Build.ArtifactStagingDirectory)/*.nupkg'
-    publishVstsFeed: 'stringextensions-feed'  # This must match your actual feed name
+    publishVstsFeed: 'stringextensions-feed'
